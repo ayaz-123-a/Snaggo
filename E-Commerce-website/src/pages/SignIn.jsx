@@ -1,6 +1,24 @@
-import { Link } from "react-router";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import MyContext from "../../../context/myContext";
+import toast from "react-hot-toast";
+const emailregex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
 const Login = () => {
+    // const navigate=useNavigate()
+    const [userLogin, setUserLogin] = useState({
+        email: "",
+        password: "",
+        role:"user"
+    })
+ const {loading, setLoading} = useContext(MyContext);
+
+ const onLogin =()=> {
+     userLogin.name==="" || userLogin.email==="" || userLogin.password===""? toast.error("Please fill all the fields"):!emailregex.test(userLogin.email)? toast.error("Please enter a valid email address")
+    : setLoading(true)
+ }
+    
     return (
         <div className='flex justify-center items-center h-screen'>
             {/* Login Form  */}
@@ -18,7 +36,11 @@ const Login = () => {
                     <input
                         type="email"
                         placeholder='Email Address'
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
+                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-gray-400'
+                        onChange={(e)=>setUserLogin({
+                            ...userLogin,
+                            email: e.target.value
+                        })}
                     />
                 </div>
 
@@ -27,18 +49,23 @@ const Login = () => {
                     <input
                         type="password"
                         placeholder='Password'
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
-                    />
+                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-gray-400'
+                        onChange={(e)=>setUserLogin({
+                            ...userLogin,
+                            password: e.target.value
+                        })}/>
                 </div>
 
                 {/* Signup Button  */}
                 <div className="mb-5">
-                    <button
+                   <button
                         type='button'
-                        className='bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md '
+                        className='bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md cursor-pointer transition-all duration-300'
+                        onClick={onLogin}
+                        disabled={loading}
                     >
-                        Login
-                    </button>
+                        {loading?<ClipLoader color="#840c98" size={30}/>:"Login"}
+                    </button> 
                 </div>
 
                 <div>

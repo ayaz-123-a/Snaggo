@@ -1,4 +1,4 @@
-import { Route, Router, Routes } from "react-router";
+import { BrowserRouter, Route, Router, Routes } from "react-router";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import ProductInfo from "./pages/ProductInfo";
@@ -12,12 +12,12 @@ import AdminDashboard from "./pages/AdminDash";
 import AddProduct from "./Components/admin/AddProduct";
 import EditProduct from "./Components/admin/EditProduct";
 import DeleteProduct from "./Components/admin/DeleteProduct";
-import MyState from "../../context/myState";
 import  { Toaster } from 'react-hot-toast'
+import MyState from "../../context/myState";
 export const App = () => {
   return (
-    <MyState>
-      <Router>
+      <MyState>
+      <BrowserRouter>
         <ScrollTop />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -34,8 +34,8 @@ export const App = () => {
           <Route path="/deleteproduct" element={<DeleteProduct />} />
         </Routes>
         <Toaster/>
-      </Router>
-    </MyState>
+      </BrowserRouter>
+      </MyState>
   );
 };
 export default App;

@@ -1,25 +1,82 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import MyContext from "../../../context/myContext";
 import toast from "react-hot-toast";
+import{ClipLoader} from "react-spinners";
+import { auth, fireDb } from "../../../firebase/FirebaseConfig";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+const emailregex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Signup = () => {
-    // const context=useContext(MyContext)
-    // const [loading,setLoading]=context
+    const context=useContext(MyContext)
+    const {loading,setLoading}=context
+    const navigate=useNavigate();
+
+
     const[userSignUp,setUserSignup]=useState({
         name:"",
         email:"",
-        password:""})
-    const emailregex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const onSignup=async()=>{
-        if(userSignUp.name==="" || userSignUp.email==="" || userSignUp.password===""){
-            toast.error("Please fill all the fields")
-            return;
+        password:"",
+        role:"user"
+    })
+const firebaseAuth=async()=>{
+    try{
+        
+        setLoading(true)
+        const users = await createUserWithEmailAndPassword(auth, userSignUp.email, userSignUp.password)
+        const user = {
+                name: userSignUp.name,
+                email: users.user.email,
+                uid: users.user.uid,
+                role: userSignUp.role,
+                time: Timestamp.now(),
+                date: new Date().toLocaleString(
+                    "en-US",
+                    {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                    }
+                )
+            }
+
+            // create user Refrence
+            const userRefrence = collection(fireDb, "user")
+
+            // Add User Detail
+            addDoc(userRefrence, user);
+
+            setUserSignup({
+                name: "",
+                email: "",
+                password: ""
+            })
+             setLoading(false);
+            toast.success("Signup Successfully");
+            navigate('/login')
+
     }
-    if(!emailregex.test(userSignUp.email)){
-        toast.error("Please enter a valid email address")
-        return;
+    catch(error){
+
+        setLoading(false);
+        toast.error(error)
     }}
+
+
+    const  onSignup= ()=>{
+    //     if(userSignUp.name==="" || userSignUp.email==="" || userSignUp.password===""){
+    //         toast.error("Please fill all the fields")
+    // }
+    // if(!emailregex.test(userSignUp.email)){
+    //     toast.error("Please enter a valid email address")
+    // }
+
+    userSignUp.name==="" || userSignUp.email==="" || userSignUp.password===""? toast.error("Please fill all the fields"):!emailregex.test(userSignUp.email)? toast.error("Please enter a valid email address")
+    : firebaseAuth()
+    
+    }
 
     return (
         <div className='flex justify-center items-center h-screen'>
@@ -85,15 +142,16 @@ const Signup = () => {
                 <div className="mb-5">
                     <button
                         type='button'
-                        className='bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md '
+                        className='bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md cursor-pointer transition-all duration-300'
                         onClick={onSignup}
+                        disabled={loading}
                     >
-                        Signup
-                    </button>
+                        {loading?<ClipLoader color="#840c98" size={30}/>:"Signup"}
+                    </button> 
                 </div>
 
                 <div>
-                    <h2 className='text-black'>Have an account <Link className=' text-pink-500 font-bold' to={'/login'}>Login</Link></h2>
+                    <h2 className='text-black'>Have an account ?  <Link className=' text-pink-500 font-bold' to={'/login'}>Login</Link></h2>
                 </div>
 
             </div>

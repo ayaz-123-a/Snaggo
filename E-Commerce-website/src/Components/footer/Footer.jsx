@@ -24,8 +24,8 @@ const Footer = () => {
                             @snaggo
                         </Link>
                     </p>
-                    <p className="text-white text-center sm:ml-auto sm:mt-0 mt-4">
-                        <span className="text-2xl">Thank-You</span>
+                    <p className="text-white  sm:ml-auto sm:mt-0 mt-4">
+                        <span style={{fontFamily:"Playwrite HU,cursive",fontSize:"24px",textAlign:"center"}}>Thank-You</span>
                     </p>
                     {/* media icon  */}
                     <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
