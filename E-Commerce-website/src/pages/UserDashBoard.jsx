@@ -12,7 +12,7 @@ const products = [
     quantity: 1,
   },
 ];
-
+const user = JSON.parse(localStorage.getItem("users"));
 const UserDashboard = () => {
   return (
     <Layout>
@@ -31,10 +31,10 @@ const UserDashboard = () => {
             {/* text  */}
             <div className="">
               <h1 className=" text-center text-lg">
-                <span className=" font-bold">Name :</span> Kamal Nayan Upadhyay
+                <span className=" font-bold">Name :</span>{user?.name}
               </h1>
               <h1 className=" text-center text-lg">
-                <span className=" font-bold">Email :</span> test@gmail.com
+                <span className=" font-bold">Email :</span> {user?.email}
               </h1>
             </div>
           </div>
@@ -66,7 +66,7 @@ const UserDashboard = () => {
                     <div className="mb-4">
                       <div className="text-sm font-semibold">Date</div>
                       <div className="text-sm font-medium text-gray-900">
-                        4 March, 2023
+                       {user?.date}
                       </div>
                     </div>
 

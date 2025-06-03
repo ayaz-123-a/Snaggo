@@ -1,18 +1,47 @@
+import { useParams } from "react-router";
 import Layout from "../Components/layout/Layout";
+import { useContext, useEffect, useState } from "react";
+import MyContext from "../../../context/myContext";
+import { doc, getDoc } from "firebase/firestore";
+import { fireDb } from "../../../firebase/FirebaseConfig";
+import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 const ProductInfo = () => {
+  const {id}=useParams()
+  const context=useContext(MyContext)
+  const {loading,setLoading}=context
+const [product, setProduct] = useState();
+
+  const getProductData = async () => {
+        setLoading(true)
+        try {
+            const productTemp = await getDoc(doc(fireDb, "products", id))
+            setProduct(productTemp.data());
+            setLoading(false)
+        } catch (error) {
+          toast.error(error.message)
+            setLoading(false)
+        }
+    }
+
+useEffect(()=>{
+  getProductData()
+},[])
+
   return (
     <Layout>
+      {loading&&<div className="flex items-center justify-center h-screen"><ClipLoader color="#36d7b7" size={50} /></div>}
       <section className="py-5 lg:py-16 font-poppins">
         <div className="max-w-6xl px-4 mx-auto">
           <div className="flex flex-wrap mb-24 -mx-4">
             <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
-              <div className="">
-                <div className="">
+              <div>
+                <div >
                   <img
                     className=" w-full lg:h-[39em] rounded-lg"
-                    src="https://i.pinimg.com/736x/e4/61/f2/e461f2246b6ad93e2099d98780626396.jpg"
-                    alt=""
+                    src={product?.productImageUrl}
+                    alt="ProductImage"
                   />
                 </div>
               </div>
@@ -21,8 +50,7 @@ const ProductInfo = () => {
               <div className="lg:pl-20">
                 <div className="mb-6 ">
                   <h2 className="max-w-xl mb-6 text-xl font-semibold leading-loose tracking-wide text-zinc-950 md:text-2xl">
-                    Intel® Core™ i5-12600HX Processor (18M Cache, up to 4.60
-                    GHz)
+                    {product?.title}
                   </h2>
                   <div className="flex flex-wrap items-center mb-6">
                     <ul className="flex mb-4 mr-2 lg:mb-0">
@@ -85,7 +113,7 @@ const ProductInfo = () => {
                     </ul>
                   </div>
                   <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
-                    <span>Rs.7,000.00</span>
+                    <span>{product?.price}</span>
                   </p>
                 </div>
                 <div className="mb-6">
@@ -93,16 +121,7 @@ const ProductInfo = () => {
                     Description :
                   </h2>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Culpa, explicabo enim ratione voluptatum at cupiditate
-                    delectus nemo dolorum officia esse beatae optio ut mollitia
-                    sit omnis, possimus nesciunt voluptas natus! Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Provident rerum
-                    ad rem reprehenderit qui, omnis nam distinctio, dignissimos
-                    nisi quidem aliquam, sapiente delectus commodi! Perspiciatis
-                    provident illo autem quidem ad! Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Beatae reiciendis eum dolorum
-                    cupiditate{" "}
+                    {product?.description}
                   </p>
                 </div>
 

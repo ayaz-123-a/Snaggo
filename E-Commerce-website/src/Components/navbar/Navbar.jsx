@@ -1,44 +1,59 @@
-import { NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import SearchBar from "../searchbar/SearchBar";
 // import SearchBar from "../searchBar/SearchBar";
 
 const Navbar = () => {
-  // navList Data
+   const user = JSON.parse(localStorage.getItem('users'));
+  const navigate = useNavigate();
+
+   const logout = () => {
+        localStorage.clear('users');
+        navigate("/login")
+    }
+
+
   const navList = (
     <ul className="flex  text-shadow-zinc-950 font-medium text-medium px-3   space-x-2   sm:space-x-4 lg:text-2xl md:mt-3.5 lg:mt-0">
       {/* Home */}
+      {user?.role === "user" &&
       <li>
         <NavLink to={"/"}>Home</NavLink>
-      </li>
+      </li>}
 
       {/* All Product */}
+     { user?.role ==="user"&&
       <li>
         <NavLink to={"/allproduct"}>Products</NavLink>
-      </li>
+      </li>}
 
       {/* Signup */}
-      <li>
-        <NavLink to={"/signup"}>Signup</NavLink>
-      </li>
-
+      {!user ? <li>
+                <Link to={'/signup'}>Signup</Link>
+            </li> : ""}
+        {!user ? <li>
+                <Link to={'/login'}>Login</Link>
+            </li> : ""}
       {/* User */}
-      <li>
-        <NavLink to={"/user"}>Kamal</NavLink>
-      </li>
-
+      {user?.role === "user" && <li>
+                <Link to={'/user'}>{user.name}</Link>
+            </li>}
       {/* Admin */}
-      {/* <li>
-                <NavLink to={'/'}>Admin</NavLink>
-            </li> */}
+      {user?.role === "admin" && <li>
+                <Link to={'/admin'}>Admin</Link>
+            </li>}
+
+      {/* Add Product */}
+        {user?.role ==="admin"&&<li><Link to={"/addproduct"}>Add Product</Link></li>}
+
 
       {/* logout */}
-      {/* <li>
-                logout
-            </li> */}
+
+      {user&& <li className=" cursor-pointer" onClick={logout}>
+           Logout </li>} 
 
       {/* Cart */}
       <li>
-        <NavLink to={"/cart"}>Cart[0] </NavLink>
+        <NavLink to={"/cart"}>Cart(0) </NavLink>
       </li>
     </ul>
   );

@@ -2,21 +2,56 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import MyContext from "../../../context/myContext";
 import toast from "react-hot-toast";
+import { auth, fireDb } from "../../../firebase/FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { ClipLoader } from "react-spinners";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 const emailregex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
 const Login = () => {
-    // const navigate=useNavigate()
+     const {loading, setLoading} = useContext(MyContext);
+
+    const navigate=useNavigate()
     const [userLogin, setUserLogin] = useState({
         email: "",
         password: "",
-        role:"user"
     })
- const {loading, setLoading} = useContext(MyContext);
+
+ const fireBaseAuth = async () => {
+    try{
+             setLoading(true);
+        const users = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
+        const q = query(
+                    collection(fireDb, "user"),
+                    where('uid', '==', users?.user?.uid)
+                );
+                const data = onSnapshot(q, (QuerySnapshot) => {
+                    let user;
+                    QuerySnapshot.forEach((doc) => user = doc.data());
+                    localStorage.setItem("users", JSON.stringify(user) )
+                    setUserLogin({
+                        email: "",
+                        password: ""
+                    })
+                    toast.success("Login Successfully");
+                    setLoading(false);
+                    if(user.role === "user") {
+                        navigate('/user');
+                    }else{
+                        navigate('/admin');
+                    }
+                });
+                return () => data;
+            } catch (error) {
+                setLoading(false);
+                toast.error(error.message);
+    }
+}
 
  const onLogin =()=> {
-     userLogin.name==="" || userLogin.email==="" || userLogin.password===""? toast.error("Please fill all the fields"):!emailregex.test(userLogin.email)? toast.error("Please enter a valid email address")
-    : setLoading(true)
+    userLogin.email==="" || userLogin.password===""? toast.error("Please fill all the fields"):!emailregex.test(userLogin.email)? toast.error("Please enter a valid email address")
+    : fireBaseAuth();
  }
     
     return (
