@@ -1,11 +1,11 @@
 import {  useNavigate, useParams } from "react-router";
-import MyContext from "../../../../context/myContext";
 import { useContext, useEffect, useState } from "react";
 
-import { fireDb } from "../../../../firebase/FirebaseConfig";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
+import MyContext from "../../../context/myContext";
+import { fireDb } from "../../../firebase/FirebaseConfig";
 
 
 const categoryList = [

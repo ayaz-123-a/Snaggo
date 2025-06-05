@@ -12,10 +12,10 @@ import AdminDashboard from "./pages/AdminDash";
 import AddProduct from "./Components/admin/AddProduct";
 import EditProduct from "./Components/admin/EditProduct";
 import  { Toaster } from 'react-hot-toast'
-import MyState from "../../context/myState";
 import ProtectedRouteForUser from "../protected-routes/ProtectedRouteForUser";
 import ProtectedRouteForAdmin from "../protected-routes/ProtectedRouteForAdmin";
-import Category from "./pages/Category";
+import CategoryPage from "./pages/CategoryPage";
+import MyState from "../context/myState";
 export const App = () => {
   return (
       <MyState>
@@ -29,7 +29,7 @@ export const App = () => {
           <Route path="/allproduct" element={<AllProduct />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />}/>
-          <Route path="/category"element={<Category/>}/>
+          <Route path="/category/:categoryname"element={<CategoryPage/>}/>
           <Route element={<ProtectedRouteForUser/>}>
           <Route path="/user" element={<UserDashboard />} />
           </Route>

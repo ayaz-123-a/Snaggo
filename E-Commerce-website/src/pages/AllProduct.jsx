@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router";
 import Layout from "../Components/layout/Layout";
 import { useContext } from "react";
-import MyContext from "../../../context/myContext";
-
+import { ClipLoader } from "react-spinners";
+import MyContext from "../../context/myContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/slices/CartSlice";
 
 
 
@@ -10,11 +12,14 @@ import MyContext from "../../../context/myContext";
 const AllProduct = () => {
 
 const context=useContext(MyContext)
-const {getAllProduct}=context //getAllProduct contains product data
+const dispatch=useDispatch()
 
+
+const getAllProduct=JSON.parse(localStorage.getItem('getAllProduct')) || context.getAllProduct;
     const navigate = useNavigate();
     return (
         <Layout>
+            {getAllProduct.length > 0 ? 
     <div className="py-8">
             {/* Heading  */}
             <div className="">
@@ -24,7 +29,8 @@ const {getAllProduct}=context //getAllProduct contains product data
             <section className="text-gray-600 body-font">
                 <div className="container px-5 lg:px-0 py-5 mx-auto">
                     <div className="flex flex-wrap -m-4">
-                        {getAllProduct?.map((item) => {
+                        {getAllProduct?.map((item,index) => {
+                            console.log(getAllProduct);
                             const { id, title, price,productImageUrl} = item
                             return (
                                 <div key={id} className="p-4 w-full md:w-1/4">
@@ -47,7 +53,7 @@ const {getAllProduct}=context //getAllProduct contains product data
                                             </h1>
 
                                             <div className="flex justify-center ">
-                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
+                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold" onClick={()=>{dispatch(addToCart(getAllProduct[index]))}}>
                                                     Add To Cart
                                                 </button>
                                             </div>
@@ -60,6 +66,12 @@ const {getAllProduct}=context //getAllProduct contains product data
                 </div>
             </section>
         </div>
+        :
+        
+        <div className="flex justify-center items-center h-screen ">
+            <ClipLoader color="#840c98" size={30} />
+            </div>
+        }
         </Layout>
     );
 }

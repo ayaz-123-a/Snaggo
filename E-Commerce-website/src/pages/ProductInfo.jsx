@@ -1,11 +1,11 @@
 import { useParams } from "react-router";
 import Layout from "../Components/layout/Layout";
 import { useContext, useEffect, useState } from "react";
-import MyContext from "../../../context/myContext";
 import { doc, getDoc } from "firebase/firestore";
-import { fireDb } from "../../../firebase/FirebaseConfig";
+import { fireDb } from "../../firebase/FirebaseConfig";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import MyContext from "../../context/myContext";
 
 const ProductInfo = () => {
   const {id}=useParams()

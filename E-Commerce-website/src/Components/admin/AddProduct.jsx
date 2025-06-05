@@ -1,10 +1,10 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { fireDb } from "../../../../firebase/FirebaseConfig";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import MyContext from "../../../../context/myContext";
 import { ClipLoader } from "react-spinners";
+import MyContext from "../../../context/myContext";
+import { fireDb } from "../../../firebase/FirebaseConfig";
 
 
 const categoryList = [
@@ -45,7 +45,6 @@ const AddProduct = () => {
         productImageUrl: "",
         category: "",
         description: "",
-        quantity : "",
         time: Timestamp.now(),
         date: new Date().toLocaleString(
             "en-US",
@@ -143,11 +142,11 @@ const AddProduct = () => {
                             })}
                         </select>
                     </div>
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                         <input type="number" name="description" placeholder="Quantity" rows="5" className=" w-full px-2 py-1 text-pink-300 bg-pink-50 border border-pink-200 rounded-md outline-none placeholder-pink-300"  onChange={(e) => setProduct({ ...product, quantity: e.target.value })}  >
                            
                         </input>
-                    </div>
+                    </div> */}
                     {/* Input Five  */}
                     <div className="mb-3">
                         <textarea name="description" placeholder="Product Description" rows="5" className=" w-full px-2 py-1 text-pink-300 bg-pink-50 border border-pink-200 rounded-md outline-none placeholder-pink-300"  onChange={(e) => setProduct({ ...product, description: e.target.value })}  >

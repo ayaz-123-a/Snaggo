@@ -1,16 +1,19 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import MyContext from "../../../context/myContext";
+// import MyContext from "../../../context/myContext";
 import toast from "react-hot-toast";
 import{ClipLoader} from "react-spinners";
-import { auth, fireDb } from "../../../firebase/FirebaseConfig";
+// import { auth, fireDb } from "../../../firebase/FirebaseConfig";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, fireDb } from "../../firebase/FirebaseConfig";
+import MyContext from "../../context/myContext";
 
 const emailregex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Signup = () => {
     const context=useContext(MyContext)
+
     const {loading,setLoading}=context
     const navigate=useNavigate();
 

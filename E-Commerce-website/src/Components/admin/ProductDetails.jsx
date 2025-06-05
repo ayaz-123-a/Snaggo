@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router";
-import MyContext from "../../../../context/myContext";
 import { ClipLoader } from "react-spinners";
 import { deleteDoc, doc } from "firebase/firestore";
-import { fireDb } from "../../../../firebase/FirebaseConfig";
 import toast from "react-hot-toast";
+import { fireDb } from "../../../firebase/FirebaseConfig";
+import MyContext from "../../../context/myContext";
 
 const ProductDetail = () => {
    const context = useContext(MyContext);

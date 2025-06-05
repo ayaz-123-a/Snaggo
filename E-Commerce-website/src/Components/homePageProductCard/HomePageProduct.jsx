@@ -1,13 +1,31 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
-import MyContext from "../../../../context/myContext";
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from "../../../store/slices/CartSlice";
+import MyContext from "../../../context/myContext";
+import toast from "react-hot-toast";
+
 
 
 
 const HomePageProductCard = () => {
+
+    const getCartItems=useSelector((item)=>item.cartStore) // each time dispatch this selecvtor will be called
+
+
+    useEffect(()=>{localStorage.setItem('cartStore',JSON.stringify(getCartItems))},[getCartItems])
+    
+    console.log(getCartItems);
+    const dispatch=useDispatch()
     const navigation = useNavigate();
     const context=useContext(MyContext)
     const { getAllProduct} = context; // Assuming productData is an array of product objects
+
+    const addingToCart=(item)=>{
+        dispatch(addToCart(item))
+        toast.success("successfully added to cart")
+    }
+
     return (
         <main className="mt-10">
             {/* Heading  */}
@@ -43,7 +61,7 @@ const HomePageProductCard = () => {
                                             </h1>
 
                                             <div className="flex justify-center ">
-                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
+                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold" onClick={()=>addingToCart(item)}>
                                                     Add To Cart
                                                 </button>
                                             </div>
