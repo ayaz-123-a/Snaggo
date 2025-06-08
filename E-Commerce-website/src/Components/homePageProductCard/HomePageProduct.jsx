@@ -15,7 +15,7 @@ const HomePageProductCard = () => {
 
     useEffect(()=>{localStorage.setItem('cartStore',JSON.stringify(getCartItems))},[getCartItems])
     
-    console.log(getCartItems);
+    // console.log(getCartItems);
     const dispatch=useDispatch()
     const navigation = useNavigate();
     const context=useContext(MyContext)

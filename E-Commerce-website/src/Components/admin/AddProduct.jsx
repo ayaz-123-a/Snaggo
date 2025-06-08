@@ -12,7 +12,7 @@ const categoryList = [
         name: 'fashion'
     },
     {
-        name: 'shirt'
+        name: 'shirt and pant'
     },
     {
         name: 'jacket'

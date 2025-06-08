@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
-const initialState = JSON.parse(localStorage.getItem("cartStore") ??[]);
+const initialState = JSON.parse(localStorage.getItem("cartStore")||'[]');
 const findItemIndex = (state, action) =>  state.findIndex((item) => item.id === action.payload.id)
 
 

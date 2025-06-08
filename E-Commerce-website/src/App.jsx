@@ -11,14 +11,14 @@ import UserDashboard from "./pages/UserDashBoard";
 import AdminDashboard from "./pages/AdminDash";
 import AddProduct from "./Components/admin/AddProduct";
 import EditProduct from "./Components/admin/EditProduct";
-import  { Toaster } from 'react-hot-toast'
+import { Toaster } from "react-hot-toast";
 import ProtectedRouteForUser from "../protected-routes/ProtectedRouteForUser";
 import ProtectedRouteForAdmin from "../protected-routes/ProtectedRouteForAdmin";
 import CategoryPage from "./pages/CategoryPage";
 import MyState from "../context/myState";
 export const App = () => {
   return (
-      <MyState>
+    <MyState>
       <BrowserRouter>
         <ScrollTop />
         <Routes>
@@ -28,21 +28,21 @@ export const App = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/allproduct" element={<AllProduct />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />}/>
-          <Route path="/category/:categoryname"element={<CategoryPage/>}/>
-          <Route element={<ProtectedRouteForUser/>}>
-          <Route path="/user" element={<UserDashboard />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/category/:categoryname" element={<CategoryPage />} />
+          <Route element={<ProtectedRouteForUser />}>
+            <Route path="/user" element={<UserDashboard />} />
           </Route>
 
-          <Route element={<ProtectedRouteForAdmin/>} >
-          <Route path="/addproduct" element={<AddProduct />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/editproduct/:id" element={<EditProduct />} />
-           </Route>
+          <Route element={<ProtectedRouteForAdmin />}>
+            <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/editproduct/:id" element={<EditProduct />} />
+          </Route>
         </Routes>
+        <Toaster/>
       </BrowserRouter>
-       <Toaster/>
-      </MyState>
+    </MyState>
   );
 };
 export default App;

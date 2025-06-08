@@ -7,8 +7,14 @@ import MyContext from '../../context/myContext';
 
 const AdminDashboard = () => {
   const user =JSON.parse(localStorage.getItem('users'))
+  const contex=useContext(MyContext)
+  const {getAllOrder}=contex
+  const orderLength=getAllOrder.length
+  console.log(orderLength);
+
   const context=useContext(MyContext)
-  const {getAllProduct}=context
+  const {getAllProduct,getUser}=context
+  const onlyUser=getUser.filter((item)=>item.role==='user')
   return (
     <div>
       {/* Top */}
@@ -73,7 +79,7 @@ const AdminDashboard = () => {
                   </svg>
                 </div>
                 <h2 className="title-font font-medium text-3xl text-pink-400 fonts1">
-                 {getAllProduct.length}
+                 {getAllProduct?.length}
                 </h2>
                 <p className=" text-pink-500  font-bold">Total Products</p>
               </div>
@@ -104,7 +110,7 @@ const AdminDashboard = () => {
                   </svg>
                 </div>
                 <h2 className="title-font font-medium text-3xl text-pink-400 fonts1">
-                  10
+                  {orderLength}
                 </h2>
                 <p className=" text-pink-500  font-bold">Total Order</p>
               </div>
@@ -133,7 +139,7 @@ const AdminDashboard = () => {
                   </svg>
                 </div>
                 <h2 className="title-font font-medium text-3xl text-pink-400 fonts1">
-                  10
+                  {onlyUser.length}
                 </h2>
                 <p className=" text-pink-500  font-bold">Total User</p>
               </div>

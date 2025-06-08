@@ -1,43 +1,40 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { ClipLoader } from "react-spinners";
-import { deleteDoc, doc } from "firebase/firestore";
-import toast from "react-hot-toast";
-import { fireDb } from "../../../firebase/FirebaseConfig";
+
 import MyContext from "../../../context/myContext";
 
 const ProductDetail = () => {
    const context = useContext(MyContext);
-    const { loading, getAllProduct,getAllProductFunction,setLoading } = context;
+    const { loading, getAllProduct,deleteProduct } = context;
     
     // Function to delete a product
-  const deleteProduct = async (id) => {
-        setLoading(true)
-        try {
-            await deleteDoc(doc(fireDb, 'products', id))
-            toast.success('Product Deleted successfully')
-            getAllProductFunction();
-            setLoading(false)
-        } catch (error) {
-            console.log(error)
-            setLoading(false)
-        }
-    }
+ 
    return (
-        <div>
+          
+             loading?
+             <div className="flex justify-center items-center mt-1.5">
+                <ClipLoader color="#840c98" size={50} />
+             </div>
+             :
+
+       
+       <div>
+          
             <div className="py-5 flex justify-between items-center">
                 {/* text  */}
                 <h1 className=" text-xl text-pink-300 font-bold">All Product</h1>
                 {/* Add Product Button  */}
                 <Link to={'/addproduct'}>
                 
-                    <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-all duration-300 cursor-pointer">Add Product</button>
+                    <button className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-all duration-300 cursor-pointer">Add Product</button>
                 </Link>
             </div>
             {/* Loading  */}
+           
+
             <div className="flex justify-center relative top-20">
-                {loading && <ClipLoader color="#840c98" size={30} />}
-            </div>
+                </div>
             {/* table  */}
             <div className="w-full overflow-x-auto mb-5">
                 <table className="w-full text-left border border-collapse sm:border-separate border-pink-100 text-pink-400" >
@@ -77,19 +74,23 @@ const ProductDetail = () => {
                                         {date}
                                     </td>
                                     <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 cursor-pointer ">
-                                    <Link to={`/editproduct/${id}`} className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-all duration-300">Edit</Link>
+                                    <Link to={`/editproduct/${id}`} className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-pink-300 transition-all duration-300">Edit</Link>
                                     </td>
                                     <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 cursor-pointer ">
-                                      <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition-all duration-300 cursor-pointer" onClick={()=>deleteProduct(id)}>
-                                       {loading?<ClipLoader/>:"Delete"}  </button>
+                                      <button className="bg-pink-500 text-white px-3 py-1 rounded-md hover:bg-pink-300 transition-all duration-300 cursor-pointer" onClick={()=>deleteProduct(id)}>
+                                       {loading?<div className="flex pt-1.5">
+                                        <ClipLoader/>
+                                       </div>:"Delete"}  </button>
                                     </td>
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
-            </div>
-        </div>
+                </div>
+
+                    </div>
+                    
     );
 };
 

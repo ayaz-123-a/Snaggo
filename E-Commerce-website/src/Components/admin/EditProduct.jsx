@@ -37,7 +37,7 @@ const categoryList = [
 
 const EditProduct = () => {
   const context=useContext(MyContext)
-  const {loading,setLoading, getAllProductFunction}=context
+  const {loading,setLoading, getAllProduct}=context
   const {id}=useParams()
   const navigate = useNavigate();
 
@@ -86,7 +86,7 @@ const EditProduct = () => {
     }
 
    useEffect(() => {
-        getSingleProductFunction();
+        getSingleProductFunction(id);
     },[]);
 
     const updateProduct = async () => {
@@ -94,7 +94,7 @@ const EditProduct = () => {
         try {
 
             await setDoc(doc(fireDb, 'products', id), product)
-            getAllProductFunction();
+            getAllProduct();
             setLoading(false)
             toast.success("Product Updated successfully")
             navigate('/admin')

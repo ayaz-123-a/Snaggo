@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
 import Layout from "../Components/layout/Layout";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import MyContext from "../../context/myContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/slices/CartSlice";
+import toast from "react-hot-toast";
 
 
 
@@ -13,6 +14,14 @@ const AllProduct = () => {
 
 const context=useContext(MyContext)
 const dispatch=useDispatch()
+const cartItems=useSelector(state=>state.cartStore)
+
+useEffect(()=>{localStorage.setItem('cartStore',JSON.stringify(cartItems))},[cartItems])
+
+const addingItemsToCart=(item)=>{
+    dispatch(addToCart(item))
+    toast.success("succesfully added to Cart")
+}
 
 
 const getAllProduct=JSON.parse(localStorage.getItem('getAllProduct')) || context.getAllProduct;
@@ -30,7 +39,6 @@ const getAllProduct=JSON.parse(localStorage.getItem('getAllProduct')) || context
                 <div className="container px-5 lg:px-0 py-5 mx-auto">
                     <div className="flex flex-wrap -m-4">
                         {getAllProduct?.map((item,index) => {
-                            console.log(getAllProduct);
                             const { id, title, price,productImageUrl} = item
                             return (
                                 <div key={id} className="p-4 w-full md:w-1/4">
@@ -53,7 +61,7 @@ const getAllProduct=JSON.parse(localStorage.getItem('getAllProduct')) || context
                                             </h1>
 
                                             <div className="flex justify-center ">
-                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold" onClick={()=>{dispatch(addToCart(getAllProduct[index]))}}>
+                                                <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold" onClick={()=>{addingItemsToCart(getAllProduct[index])}}>
                                                     Add To Cart
                                                 </button>
                                             </div>
@@ -69,7 +77,7 @@ const getAllProduct=JSON.parse(localStorage.getItem('getAllProduct')) || context
         :
         
         <div className="flex justify-center items-center h-screen ">
-            <ClipLoader color="#840c98" size={30} />
+            <h1 className="text-5xl text-red-400">No Product Found</h1>
             </div>
         }
         </Layout>
