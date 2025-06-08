@@ -98,7 +98,7 @@ const AddProduct = () => {
                             placeholder='Product Title'
                             className='bg-pink-50 text-pink-300 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-300'
                             onChange={(e) => setProduct({ ...product, title: e.target.value })}
-                            value={product.title}
+                            
                         />
                     </div>
 
@@ -114,7 +114,7 @@ const AddProduct = () => {
                                 price: e.target.value
                               })
                             }}
-                            value={product.price}
+                            // value={product.price}
                         />
                     </div>
 
@@ -132,6 +132,7 @@ const AddProduct = () => {
                     <div className="mb-3">
                         <select className="w-full px-1 py-2 text-pink-300 bg-pink-50 border border-pink-200 rounded-md outline-none  "
                             onChange={(e) => setProduct({ ...product, category: e.target.value })}
+                            
                         >
                             <option disabled>Select Product Category</option>
                             {categoryList.map((value, index) => {
