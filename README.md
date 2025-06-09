@@ -29,7 +29,30 @@ Frontend	Backend	State Management	Styling	Authentication
 React	Firebase (Firestore & Auth)	Redux Toolkit + Context API	Tailwind CSS	Firebase Auth
 
 Screenshots
-Add screenshots or demo gifs here to showcase UI and features.
+
+1.Home Page
+
+![alt text](<Screenshot 2025-06-08 223813.png>)
+
+2.Admin Dash
+![alt text](<Screenshot 2025-06-08 223901.png>)
+
+3.UserDash
+
+![alt text](<Screenshot 2025-06-08 224122.png>)
+
+4.LoginPage
+
+![alt text](<Screenshot 2025-06-08 223946.png>)
+
+5.SignUp Page
+
+![alt text](<Screenshot 2025-06-08 224007.png>)
+
+6.Mobile View
+![alt text](<Screenshot 2025-06-09 151320.png>)
+![alt text](<Screenshot 2025-06-08 224240.png>)
+
 
 Getting Started
 Prerequisites
