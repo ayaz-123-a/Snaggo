@@ -62,11 +62,11 @@ return ()=>{
                 <Dialog.Panel className=" relative w-full  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
                     <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-3 right-3 text-gray-500 hover:text-red-500"
+                className="absolute top-3 right-3 text-gray-500 hover:text-red-500 "
               >
-                <XMarkIcon className="h-6 w-6" />
+                <XMarkIcon className="h-6 w-6 cursor-pointer "  />
               </button>
-                  <Dialog.Title className="text-lg font-semibold text-gray-800 mb-4 cursor-pointer text-center">
+                  <Dialog.Title className="text-lg font-semibold text-gray-800 mb-4  text-center">
                     Enter Your Details
                     <p className="text-center text-[12px] text-red-500">Press ESC to close</p>
                   </Dialog.Title>
