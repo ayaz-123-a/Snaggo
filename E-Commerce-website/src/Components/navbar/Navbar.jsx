@@ -60,7 +60,7 @@ const Navbar = () => {
             className="text-white text-2xl md:text-3xl lg:text-4xl focus:outline-none cursor-pointer"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen?<i class="fa-solid fa-xmark"></i>:<i className="fa-solid fa-bars"/>}
+            {mobileMenuOpen?<i className="fa-solid fa-xmark"></i>:<i className="fa-solid fa-bars"/>}
           </button>
         </div>
 

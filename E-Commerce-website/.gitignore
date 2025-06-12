@@ -11,7 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +21,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+E-Commerce-website/src/Components/buyNow/buyNowModal.jsx Screenshot 2025-06-08 223813.png Screenshot 2025-06-08 223901.png Screenshot 2025-06-08 223946.png Screenshot 2025-06-08 224007.png Screenshot 2025-06-08 224122.png Screenshot 2025-06-08 224240.png Screenshot 2025-06-09 151320.png

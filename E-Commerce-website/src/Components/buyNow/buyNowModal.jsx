@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function BuyNowDialog({addressInfo,setAddressInfo,buyNowFunction}) {
@@ -9,6 +9,20 @@ export default function BuyNowDialog({addressInfo,setAddressInfo,buyNowFunction}
   const handleChange = (e) => {
     setAddressInfo({ ...addressInfo, [e.target.name]: e.target.value });
   };
+
+ useEffect(()=>{
+  const escapeClose=(e)=>{
+    if(e.key==='Escape'){
+      setIsOpen(false)
+    }
+  }
+  if(isOpen){
+    window.addEventListener('keydown',escapeClose)
+  }
+return ()=>{
+  window.removeEventListener('keydown',escapeClose)
+}
+},[isOpen])
 
   return (
     <>
@@ -52,8 +66,9 @@ export default function BuyNowDialog({addressInfo,setAddressInfo,buyNowFunction}
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
-                  <Dialog.Title className="text-lg font-semibold text-gray-800 mb-4 cursor-pointer">
+                  <Dialog.Title className="text-lg font-semibold text-gray-800 mb-4 cursor-pointer text-center">
                     Enter Your Details
+                    <p className="text-center text-[12px]">Press ESC to close</p>
                   </Dialog.Title>
 
                  
@@ -99,7 +114,7 @@ export default function BuyNowDialog({addressInfo,setAddressInfo,buyNowFunction}
                       }}
                       className="w-full py-2 px-4 bg-pink-500 text-white rounded-md hover:bg-pink-300 cursor-pointer"
                     >
-                      Buy Now
+                      Order Now
                     </button>
                   </form>
                 </Dialog.Panel>
