@@ -68,7 +68,7 @@ return ()=>{
               </button>
                   <Dialog.Title className="text-lg font-semibold text-gray-800 mb-4 cursor-pointer text-center">
                     Enter Your Details
-                    <p className="text-center text-[12px]">Press ESC to close</p>
+                    <p className="text-center text-[12px] text-red-500">Press ESC to close</p>
                   </Dialog.Title>
 
                  
